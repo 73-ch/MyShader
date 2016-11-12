@@ -1,0 +1,7 @@
+- [The Book of Shaders](https://thebookofshaders.com)などを参考にテキトーにシェーダーを書いていきます
+- 一部のサンプルを覗いて正方形のスクリーンを想定して作っています
+- [The Book of Shaders](https://thebookofshaders.com)のページ内のエディターにコピペすると動くと思います
+- その他のopenframeworksとかwebglでもuniform変数にu_time(float 秒数)・u_resolution(float 非正規化　解像度)・u_mouse(float 非正規化　マウスのポジション)を送ると動くと思います
+- だいたい1日に1個のサンプルをあげられたらいいなーと思っています
+- 動かないものとかバグがあったりします
+- コメントとかこうした方がいいよーってのissueしてもらえると嬉しいです
