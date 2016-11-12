@@ -17,9 +17,7 @@ vec2 tile(vec2 _st, vec2 _zoom, out vec2 pos){
 }
 
 float random (vec2 st){
-    return fract(sin(dot(st.xy,
-                         vec2(12.9898,78.233)))*
-        43758.5453123);
+    return fract(sin(dot(st.xy, vec2(12.9898, 78.233))) * 43758.5453123);
 }
 
 void main(void){
@@ -36,52 +34,52 @@ void main(void){
     stb = st;
 
 //patern1
-    // st.x += mod(u_time, 10.) * sign(mod(pos.y, 2.)- 0.9) * speed;
-    // st = tile(st,vec2(1, 4.), pos);
+    // st.x += mod(u_time, 10.) * sign(mod(pos.y, 2.)- .9) * speed;
+    // st = tile(st,vec2(1., 4.), pos);
     // st.x = floor(st.x * 500. * u_mouse.y / u_resolution.y);
 
     // float rnd = step(.5, random(vec2(st.x, pos.y)));
-    // color = vec3(1.0 * rnd);
+    // color = vec3(1. * rnd);
 
 
 // patern2
-    // st.x += mod(u_time, 10.) * sign(mod(pos.y, 2.)- 0.9) * speed;
-    // st = tile(st,vec2(1, 4.), pos);
+    // st.x += mod(u_time, 10.) * sign(mod(pos.y, 2.)- .9) * speed;
+    // st = tile(st,vec2(1., 4.), pos);
     // st.x = floor(st.x * 500. * u_mouse.y / u_resolution.y);
 
-    // float rnd = step(.5, random(vec2(st.x - 0.01, pos.y)));
-    // color.r = 1.0 * rnd;
+    // float rnd = step(.5, random(vec2(st.x - .01, pos.y)));
+    // color.r = 1. * rnd;
     // rnd = step(.5, random(vec2(st.x, pos.y)));
-    // color.g = 1.0 * rnd;
-    // rnd = step(.5, random(vec2(st.x + 0.01, pos.y)));
-    // color.b = 1.0 * rnd;
+    // color.g = 1. * rnd;
+    // rnd = step(.5, random(vec2(st.x + .01, pos.y)));
+    // color.b = 1. * rnd;
 
 
 // patern3
-    st.x -= 0.005;
-    st.x += mod(u_time, 10.) * sign(mod(pos.y, 2.)- 0.9) * speed;
+    st.x -= .005;
+    st.x += mod(u_time, 10.) * sign(mod(pos.y, 2.) - .9) * speed;
     st = tile(st,vec2(1, 4.), pos);
     st.x = floor(st.x * 500. * u_mouse.y / u_resolution.y);
 
     float rnd = step(.5, random(vec2(st.x, pos.y)));
-    color.r = 1.0 * rnd;
+    color.r = 1. * rnd;
 
-    stg.x += mod(u_time, 10.) * sign(mod(pos.y, 2.)- 0.9) * speed;
+    stg.x += mod(u_time, 10.) * sign(mod(pos.y, 2.) - .9) * speed;
     stg = tile(stg,vec2(1, 4.), pos);
     stg.x = floor(stg.x * 500. * u_mouse.y / u_resolution.y);
 
     rnd = step(.5, random(vec2(stg.x, pos.y)));
-    color.g = 1.0 * rnd;
+    color.g = 1. * rnd;
 
-    stb += 0.005;
-    stb.x += mod(u_time, 10.) * sign(mod(pos.y, 2.)- 0.9) * speed;
-    stb = tile(stb,vec2(1, 4.), pos);
+    stb += .005;
+    stb.x += mod(u_time, 10.) * sign(mod(pos.y, 2.) - .9) * speed;
+    stb = tile(stb,vec2(1., 4.), pos);
     stb.x = floor(stb.x * 500. * u_mouse.y / u_resolution.y);
 
     rnd = step(.5, random(vec2(stb.x, pos.y)));
-    color.b = 1.0 * rnd;
+    color.b = 1. * rnd;
 
 
 
-    gl_FragColor = vec4(color,1.0);
+    gl_FragColor = vec4(color, 1.);
 }

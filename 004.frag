@@ -20,16 +20,16 @@ vec3 hsb2rgb( in vec3 c ){
 
 void main(){
     vec2 st = gl_FragCoord.xy/u_resolution;
-    vec3 color = vec3(0.0);
+    vec3 color = vec3(0.);
 
     // Use polar coordinates instead of cartesian
-    vec2 toCenter = vec2(0.5)-st;
-    float angle = atan(toCenter.y,toCenter.x) + mod(u_time, TWO_PI);
-    float radius = 1. - length(toCenter) * abs(st.x - 0.5) * abs(st.y - 0.5) * 4. * sqrt(2.);
+    vec2 toCenter = vec2(.5) - st;
+    float angle = atan(toCenter.y, toCenter.x) + mod(u_time, TWO_PI);
+    float radius = 1. - length(toCenter) * abs(st.x - .5) * abs(st.y - .5) * 4. * sqrt(2.);
 
     // Map the angle (-PI to PI) to the Hue (from 0 to 1)
     // and the Saturation to the radius
-    color = hsb2rgb(vec3((angle/TWO_PI)+0.5,radius,1.0));
+    color = hsb2rgb(vec3((angle / TWO_PI) + .5, radius, 1.));
 
-    gl_FragColor = vec4(color,1.0);
+    gl_FragColor = vec4(color, 1.);
 }
