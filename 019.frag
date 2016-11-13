@@ -53,5 +53,5 @@ void main() {
 //    float pct = step(0.5, distance(st, vec2(n)));
     vec3 pct = hsb2rgb(vec3(distance(st, vec2(n)), 1., 1. ));
 
-    gl_FragColor = vec4(pct, 1. );
+    gl_FragColor = vec4(pct, 1.);
 }
