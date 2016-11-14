@@ -13,30 +13,29 @@ float random (in vec2 st) {
 
 // 2D Noise based on Morgan McGuire @morgan3d
 // https://www.shadertoy.com/view/4dS3Wd
-float noise (in vec2 st) {
+vec2 random2(vec2 st){
+    st = vec2( dot(st,vec2(127.1,311.7)),
+              dot(st,vec2(269.5,183.3)) );
+    return -1.0 + 2.0*fract(sin(st)*43758.5453123);
+}
+
+// Value Noise by Inigo Quilez - iq/2013
+// https://www.shadertoy.com/view/lsf3WH
+float noise(vec2 st) {
     vec2 i = floor(st);
     vec2 f = fract(st);
 
-    // Four corners in 2D of a tile
-    float a = random(i);
-    float b = random(i + vec2(1., 0.));
-    float c = random(i + vec2(0., 1.));
-    float d = random(i + vec2(1., 1.));
+    vec2 u = f*f*(3.0-2.0*f);
 
-    // Cubic Hermine Curve.  Same as SmoothStep()
-    vec2 u = f*f*(3. - 2. * f);
-    u = smoothstep(0., 1., f);
-//    u = smoothstep(0., 1., f) + sin(mod(u_time, 10.)) * 5.;
-
-    // Mix 4 coorners porcentages
-    return mix(a, b, u.x) +
-            (c - a)* u.y * (1. - u.x) +
-            (d - b) * u.x * u.y;
+    return mix( mix( dot( random2(i + vec2(0.0,0.0) ), f - vec2(0.0,0.0) ),
+                     dot( random2(i + vec2(1.0,0.0) ), f - vec2(1.0,0.0) ), u.x),
+                mix( dot( random2(i + vec2(0.0,1.0) ), f - vec2(0.0,1.0) ),
+                     dot( random2(i + vec2(1.0,1.0) ), f - vec2(1.0,1.0) ), u.x), u.y);
 }
 
 void square(in vec2 st, in float n, in vec2 pos, in vec2 siz, in vec4 col, out vec4 res){
-    vec2 bl = smoothstep(pos, pos + 0.02 * noise(vec2(n)), st);
-    vec2 tr = smoothstep(1. - pos - siz - 0.03 * noise(vec2(n)), 1. - pos - siz, 1. - st);
+    vec2 bl = smoothstep(pos, pos + 0.04 * clamp(n, 0., 1.), st);
+    vec2 tr = smoothstep(1. - pos - siz - 0.04 * clamp(n, 0., 1.), 1. - pos - siz, 1. - st);
 
     float pct = bl.x * bl.y * tr.x * tr.y;
     res = vec4(col.rgb * pct, res);
@@ -50,7 +49,7 @@ void main() {
 //    vec2 pos = vec2(st * 5. * u_mouse.x / u_resolution.x);
 //    pos.x += u_time + u_mouse.y / u_resolution.y;
 
-    float n1 = smoothstep(.0, 1., max(step(.3, noise(st * 5.)) * noise(st * 5.), .8)) * -1. + 1.9;
+    float n1 = smoothstep(.0, 1., max(step(.3, noise(st * 5.)), .8)) * -1. + 1.9;
     float n2 = noise(st * 50.);
 //    float pct = step(0.5, distance(st, vec2(n)));
 
